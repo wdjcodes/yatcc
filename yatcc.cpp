@@ -6,8 +6,10 @@
 #include <regex>
 
 #include "token.hpp"
+#include "symbol.hpp"
 
 using namespace tokens;
+using namespace symbols;
 
 std::list<token> lex(std::istream_iterator<std::string> it){
 
@@ -57,5 +59,9 @@ int main(int argc, char const *argv[])
   for(token t : tokens){
     std::cout << t.type << ": " << t.token_string << "\n";
   }
+
+  // std::cout << program::parse(tokens) <<"\n";
+  program::parse(tokens)->print();
+
   return 0;
 }

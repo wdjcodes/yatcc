@@ -39,13 +39,13 @@ void init_keyword_regex_map(){
 
 
 void init_token_regex_map(){
-  token_regex_map[IDENTIFIER] = "[a-zA-Z_][a-zA-Z0-9_]*";
-  token_regex_map[INT_LITERAL] = "[0-9]+";
-  token_regex_map[PARENTH_OPEN] = "\\(";
-  token_regex_map[PARENTH_CLOSE] = "\\)";
-  token_regex_map[BRACE_OPEN] = "\\{";
-  token_regex_map[BRACE_CLOSE] = "\\}";
-  token_regex_map[SEMICOLON] = ";";
+  token_regex_map[IDENTIFIER] = "^[a-zA-Z_][a-zA-Z0-9_]*";
+  token_regex_map[INT_LITERAL] = "^[0-9]+";
+  token_regex_map[PARENTH_OPEN] = "^\\(";
+  token_regex_map[PARENTH_CLOSE] = "^\\)";
+  token_regex_map[BRACE_OPEN] = "^\\{";
+  token_regex_map[BRACE_CLOSE] = "^\\}";
+  token_regex_map[SEMICOLON] = "^;";
 }
 
 void init_tokens(){
