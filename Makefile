@@ -15,5 +15,8 @@ build: $(EXE)
 clean:
 	rm -f $(EXE)
 
+test-%:
+	cd $(BUILD_ROOT)/testing; ./test_compiler.sh $(BUILD_ROOT)/$(EXE) $*
+
 $(EXE): $(SRC_FILES)
 	$(CC) $(CPP_FLAGS) $(LOCAL_CPP_INCLUDES) $(SRC_FILES) -o $(EXE)

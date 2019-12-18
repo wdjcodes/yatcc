@@ -27,16 +27,17 @@ std::list<token> lex(std::istream_iterator<std::string> it){
       std::smatch match;
       int keyword = 0;
       for(std::pair<token_type, std::regex> tok_pair : keyword_regex_map){
-        if(std::regex_match(token_str, match, tok_pair.second)){
+        if(std::regex_search(token_str, match, tok_pair.second)){
           t.type = tok_pair.first;
           t.token_string = match.str();
           tokens.push_back(t);
+          token_str = std::regex_replace(token_str, tok_pair.second, "", std::regex_constants::format_first_only);
           keyword = 1;
           break;
         }
       }
       if(keyword){
-          break;
+          continue;
       }
       for(std::pair<token_type, std::regex> tok_pair : token_regex_map){
         if(std::regex_search(token_str, match, tok_pair.second)){

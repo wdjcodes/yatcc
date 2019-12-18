@@ -33,13 +33,13 @@ std::map<token_type, std::regex> token_regex_map;
 std::map<token_type, std::regex> keyword_regex_map;
 
 void init_keyword_regex_map(){
-  keyword_regex_map[RETURN_KEYWORD] = "return";
-  keyword_regex_map[INT_KEYWORD] = "int";
+  keyword_regex_map[RETURN_KEYWORD] = "^return\\b";
+  keyword_regex_map[INT_KEYWORD] = "^int\\b";
 }
 
 
 void init_token_regex_map(){
-  token_regex_map[IDENTIFIER] = "^[a-zA-Z_][a-zA-Z0-9_]*";
+  token_regex_map[IDENTIFIER] = "^[a-zA-Z_]\\w*";
   token_regex_map[INT_LITERAL] = "^[0-9]+";
   token_regex_map[PARENTH_OPEN] = "^\\(";
   token_regex_map[PARENTH_CLOSE] = "^\\)";
