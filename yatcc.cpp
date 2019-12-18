@@ -8,7 +8,7 @@
 #include <regex>
 
 #include <token.hpp>
-#include <symbol.hpp>
+#include <symbols.hpp>
 
 using namespace tokens;
 using namespace symbols;

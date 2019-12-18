@@ -273,63 +273,6 @@ void function::codeGen(std::ofstream& ofs){
 
 }
 
-
-class program : public typedSymbol<std::string>
-{
-private:
-    /* data */
-    program();
-public:
-    virtual void print();
-    static program *parse(std::list<token>);
-    void codeGen(std::string);
-    // void codeGen(char *);
-    ~program();
-};
-
-program::program()
-{
-    type = PROGRAM;
-}
-
-program *program::parse(std::list<token> tokens){
-
-    program *prog = new program();
-    std::list<token>::iterator it = tokens.begin();
-    /* Do parsing */
-    while(tokens.size() > 0){
-        prog->children.push_back(function::parse(it));
-        /*Remove list items from begin -> it*/
-        while(tokens.begin() != it){
-            tokens.pop_front();
-        }
-    }
-
-    return prog;
-
-}
-
-void program::print(){
-    std::cout << "PROGRAM:\n";
-    for(symbol_ptr s : children){
-        s->print();
-    }
-}
-
-void program::codeGen(std::string of_name){
-    std::ofstream ofs;
-    ofs.open(of_name);
-
-    for(symbol_ptr s : children){
-        s->codeGen(ofs);
-    }
-}
-
-// void program::codeGen(char *of_name){
-//     std::string of = of_name;
-//     codeGen(of);
-// }
-
 }
 
 #endif
