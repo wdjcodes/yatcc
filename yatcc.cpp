@@ -1,12 +1,14 @@
 
 #include <iostream>
+#include <iterator>
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <list>
 #include <regex>
 
-#include "token.hpp"
-#include "symbol.hpp"
+#include <token.hpp>
+#include <symbol.hpp>
 
 using namespace tokens;
 using namespace symbols;
@@ -54,14 +56,33 @@ std::list<token> lex(std::istream_iterator<std::string> it){
 
 int main(int argc, char const *argv[])
 {
-  
-  std::list<token> tokens = lex(std::istream_iterator<std::string>(std::cin));
+  std::istream_iterator<std::string> is_it;
+  std::string out_name, assembly_name;
+  std::ifstream ifs;
+  if(argc == 2){
+    ifs.open(argv[1]);
+    std::string line;
+    is_it = std::istream_iterator<std::string>(ifs);    
+    std::smatch m;
+    out_name = argv[1];
+    out_name = out_name.substr(0, out_name.find_last_of("."));
+    assembly_name = out_name + ".S";
+  } else {
+    is_it = std::cin;
+    out_name = "test";
+    assembly_name = "test.S";
+  }
+
+  std::list<token> tokens = lex(is_it);
   for(token t : tokens){
     std::cout << t.type << ": " << t.token_string << "\n";
   }
 
-  // std::cout << program::parse(tokens) <<"\n";
-  program::parse(tokens)->print();
+  program *p = program::parse(tokens);
+
+  p->codeGen(assembly_name);
+  std::string gcc_command = "gcc " + assembly_name + " -o " + out_name;
+  system(gcc_command.data());
 
   return 0;
 }

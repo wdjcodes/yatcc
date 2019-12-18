@@ -2,15 +2,15 @@
 #ifndef __SYMBOL_HPP
 #define __SYMBOL_HPP
 
-namespace symbols {
-
 #include <list>
 #include <iostream>
+#include <fstream>
 
 #include "token.hpp"
 
-using namespace tokens;
+namespace symbols {
 
+using namespace tokens;
 
 enum symbol_type {
     PROGRAM,
@@ -28,6 +28,7 @@ protected:
     static token nextToken(std::list<token>::iterator&);
 public:
     virtual void print();
+    virtual void codeGen(std::ofstream&);
     symbol(/* args */);
     ~symbol();
 };
@@ -47,6 +48,12 @@ token symbol::nextToken(std::list<token>::iterator& it){
 }
 
 void symbol::print(){}
+
+void symbol::codeGen(std::ofstream& ofs){}
+
+
+typedef std::shared_ptr<symbol> symbol_ptr;
+
 
 template <class T>
 class typedSymbol : public symbol
@@ -85,7 +92,7 @@ std::ostream& operator<<(std::ostream& os, const typedSymbol<T>* sym){
     return os;
 }
 
-class expression : public typedSymbol<std::string>
+class expression : public typedSymbol<int>
 {
 private:
     /* data */
@@ -93,6 +100,7 @@ private:
 public:
     virtual void print();
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    void codeGen(std::ofstream&);
     ~expression();
 };
 
@@ -113,13 +121,17 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
         std::cerr << "Expression: expected an int\n";
         exit(1);
     }
-    exp->value = t.token_string;
+    exp->value = std::stoi(t.token_string);
 
     return exp;
 }
 
 void expression::print() {
     std::cout << "EXPRESSION: " << value << "\n";
+}
+
+void expression::codeGen(std::ofstream& ofs){
+    ofs << "$" << value;
 }
 
 class statement : public typedSymbol<std::string>
@@ -130,6 +142,7 @@ private:
 public:
     virtual void print();
     static std::shared_ptr<statement> parse(std::list<token>::iterator&);
+    void codeGen(std::ofstream&);
     ~statement();
 };
 
@@ -164,9 +177,19 @@ std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it){
 void statement::print(){
     std::cout << "STATEMENT: " << value << "\n";
 
-    for(std::shared_ptr<symbol> s : children){
+    for(symbol_ptr s : children){
         s->print();
     }
+}
+
+void statement::codeGen(std::ofstream& ofs){
+    
+    for(symbol_ptr s : children){
+        ofs << "movl\t";
+        s->codeGen(ofs);
+        ofs << ", %eax\n";
+    }
+    ofs << "ret";
 }
 
 
@@ -178,6 +201,7 @@ private:
 public:
     virtual void print();
     static std::shared_ptr<function> parse(std::list<token>::iterator&);
+    void codeGen(std::ofstream&);
     ~function();
 };
 
@@ -234,9 +258,19 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 void function::print(){
     std::cout << "FUNCTION: " << value << "\n";
 
-    for(std::shared_ptr<symbol> s : children){
+    for(symbol_ptr s : children){
         s->print();
     }
+}
+
+void function::codeGen(std::ofstream& ofs){
+
+    ofs << ".globl " << value << "\n" << value << ":\n";
+    for(symbol_ptr s : children){
+        ofs << "\t";
+        s->codeGen(ofs);
+    }
+
 }
 
 
@@ -248,6 +282,8 @@ private:
 public:
     virtual void print();
     static program *parse(std::list<token>);
+    void codeGen(std::string);
+    // void codeGen(char *);
     ~program();
 };
 
@@ -275,10 +311,24 @@ program *program::parse(std::list<token> tokens){
 
 void program::print(){
     std::cout << "PROGRAM:\n";
-    for(std::shared_ptr<symbol> s : children){
+    for(symbol_ptr s : children){
         s->print();
     }
 }
+
+void program::codeGen(std::string of_name){
+    std::ofstream ofs;
+    ofs.open(of_name);
+
+    for(symbol_ptr s : children){
+        s->codeGen(ofs);
+    }
+}
+
+// void program::codeGen(char *of_name){
+//     std::string of = of_name;
+//     codeGen(of);
+// }
 
 }
 
