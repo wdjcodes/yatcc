@@ -5,7 +5,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "../symbol.hpp"
+#include "symbol.hpp"
+#include "function.hpp"
 #include "../token.hpp"
 
 using namespace tokens;
