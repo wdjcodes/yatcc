@@ -20,13 +20,12 @@ all: build
 build: $(OUT_DIR)/$(EXE)
 
 clean:
-	rm -f $(EXE)
+	rm -rf $(OUT_DIR)
 
 test-%:
 	cd $(BUILD_ROOT)/testing; ./test_compiler.sh $(BUILD_ROOT)/$(EXE) $*
 
 $(OUT_DIR)/$(EXE): $(OBJS)
-	@echo $(OBJS)
 	$(CC) $(CPP_FLAGS) $(LOCAL_CPP_INCLUDES) $(OBJS) -o $(EXE)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
