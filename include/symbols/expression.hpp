@@ -1,57 +1,61 @@
-#ifndef __EXPRESSSION_HPP
+#ifndef __EXPRESSION_HPP
 #define __EXPRESSION_HPP
 
-#include "symbols.hpp"
+#include "symbol.hpp"
 #include "../token.hpp"
 
 using namespace tokens;
 
 namespace symbols {
 
-class expression : public typedSymbol<int>
+class expression : public virtual symbol
+// class expression : public typedSymbol<int>
 {
-private:
+protected:
     /* data */
     expression(/* args */);
 public:
-    virtual void print();
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
-    void codeGen(std::ofstream&);
     ~expression();
 };
-
-expression::expression(/* args */)
+inline expression::expression(/* args */)
 {
     type = EXPRESSION;
 }
 
-expression::~expression(){}
+inline expression::~expression(){}
 
-std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
+template <class T>
+class typedExpression : public expression, public typedSymbol<T>
+{
+private:
+    /* data */
+    typedExpression(/* args */);
+public:
+    void codeGen(std::ofstream&);
+    virtual void print();
+    friend expression;
+    ~typedExpression();
+};
 
-    std::shared_ptr<expression> exp(new expression);
+template <class T>
+inline typedExpression<T>::typedExpression(/* args */){}
+template <class T>
+inline typedExpression<T>::~typedExpression(){}
 
-    token t = nextToken(it);
+typedef typedExpression<int> intExpression;
 
-    if(t.type != INT_LITERAL){
-        std::cerr << "Expression: expected an int\n";
-        exit(1);
-    }
-    exp->value = std::stoi(t.token_string);
-
-    return exp;
-}
-
-void expression::print() {
-    std::cout << "EXPRESSION: " << value << "\n";
-}
-
-void expression::codeGen(std::ofstream& ofs){
+template<>
+inline void intExpression::codeGen(std::ofstream& ofs){
     ofs << "$" << value;
 }
 
-
+template <class T>
+inline void typedExpression<T>::print() {
+    std::cout << "EXPRESSION: " << this->value << "\n";
 }
 
+
+}
 
 #endif

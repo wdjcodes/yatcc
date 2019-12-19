@@ -33,30 +33,30 @@ public:
     ~symbol();
 };
 
-symbol::symbol(/* args */)
+inline symbol::symbol(/* args */)
 {
 }
 
-symbol::~symbol()
+inline symbol::~symbol()
 {
 }
 
-token symbol::nextToken(std::list<token>::iterator& it){
+inline token symbol::nextToken(std::list<token>::iterator& it){
     token t = *it;
     it++;
     return t;
 }
 
-void symbol::print(){}
+inline void symbol::print(){}
 
-void symbol::codeGen(std::ofstream& ofs){}
+inline void symbol::codeGen(std::ofstream& ofs){}
 
 
 typedef std::shared_ptr<symbol> symbol_ptr;
 
 
 template <class T>
-class typedSymbol : public symbol
+class typedSymbol : public virtual symbol
 {
 private:
     /* data */
@@ -75,19 +75,19 @@ public:
 };
 
 template <class T>
-typedSymbol<T>::typedSymbol(){}
+inline typedSymbol<T>::typedSymbol(){}
 
 template <class T>
-typedSymbol<T>::~typedSymbol(){}
+inline typedSymbol<T>::~typedSymbol(){}
 
 template <class T>
-std::ostream& operator<<(std::ostream& os, const typedSymbol<T>& sym){
+inline std::ostream& operator<<(std::ostream& os, const typedSymbol<T>& sym){
     os << sym.type << ": " << sym.value;
     return os;
 }
 
 template <class T>
-std::ostream& operator<<(std::ostream& os, const typedSymbol<T>* sym){
+inline std::ostream& operator<<(std::ostream& os, const typedSymbol<T>* sym){
     os << sym->type << ": " << sym->value;
     return os;
 }
