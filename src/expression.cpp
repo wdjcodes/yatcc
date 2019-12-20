@@ -92,6 +92,34 @@ void bitNotOperator::codeGen(std::ofstream& ofs){
     ofs << "not\t%eax\n";
 }
 
+class boolNotOperator : public expression
+{
+private:
+    /* data */
+    std::shared_ptr<expression> operand;
+public:
+    boolNotOperator(/* args */);
+    ~boolNotOperator();
+    friend expression;
+    virtual void codeGen(std::ofstream&);
+    virtual void print();
+};
+
+boolNotOperator::boolNotOperator(/* args */){}
+boolNotOperator::~boolNotOperator(){}
+
+void boolNotOperator::print(){
+    std::cout << "!( ";
+    operand->print();
+    std::cout << ")";
+}
+
+void boolNotOperator::codeGen(std::ofstream& ofs){
+    operand->codeGen(ofs);
+    ofs << "cmpl\t$0, %eax\nmovl\t$0,%eax\nsete\t%al\n";
+}
+
+
 
 
 std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
@@ -119,6 +147,12 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
         } 
         case TILDE: {
             std::shared_ptr<bitNotOperator> e(new bitNotOperator);
+            e->operand = expression::parse(it);
+            exp = e;
+            break;
+        }
+        case EXCLAMATION_PT: {
+            std::shared_ptr<boolNotOperator> e(new boolNotOperator);
             e->operand = expression::parse(it);
             exp = e;
             break;

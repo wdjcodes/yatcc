@@ -23,6 +23,7 @@ enum token_type {
   BRACE_CLOSE,
   MINUS,
   TILDE,
+  EXCLAMATION_PT,
   SEMICOLON
 };
 
