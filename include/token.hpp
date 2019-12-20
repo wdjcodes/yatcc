@@ -21,6 +21,8 @@ enum token_type {
   PARENTH_CLOSE,
   BRACE_OPEN,
   BRACE_CLOSE,
+  MINUS,
+  TILDE,
   SEMICOLON
 };
 

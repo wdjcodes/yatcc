@@ -60,9 +60,7 @@ void statement::print(){
 void statement::codeGen(std::ofstream& ofs){
     
     for(symbol_ptr s : children){
-        ofs << "movl\t";
         s->codeGen(ofs);
-        ofs << ", %eax\n";
     }
     ofs << "ret";
 }

@@ -19,6 +19,8 @@ void init_token_regex_map(){
   token_regex_map[PARENTH_CLOSE] = "^\\)";
   token_regex_map[BRACE_OPEN] = "^\\{";
   token_regex_map[BRACE_CLOSE] = "^\\}";
+  token_regex_map[MINUS] = "^-";
+  token_regex_map[TILDE] = "^~";
   token_regex_map[SEMICOLON] = "^;";
 }
 
