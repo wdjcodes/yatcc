@@ -16,7 +16,9 @@ enum symbol_type {
     PROGRAM,
     FUNCTION,
     STATEMENT,
-    EXPRESSION
+    EXPRESSION,
+    TERM,
+    FACTOR
 };
 
 class symbol
