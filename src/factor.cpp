@@ -126,7 +126,7 @@ std::shared_ptr<factor> factor::parse(std::list<token>::iterator& it){
 
     std::shared_ptr<factor> fact;
 
-    token t = nextToken(it);
+    token t = popToken(it);
 
     // if(t.type != INT_LITERAL){
         

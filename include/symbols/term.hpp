@@ -2,18 +2,18 @@
 #define __TERM_HPP
 
 #include "symbol.hpp"
-#include "factor.hpp"
+#include "expression.hpp"
 #include "../token.hpp"
 
 using namespace tokens;
 
 namespace symbols {
 
-class term : public symbol
+class term : public expression
 // class term : public typedSymbol<int>
 {
 private:
-    std::shared_ptr<factor> pFactor;
+    std::shared_ptr<term> pTerm;
 protected:
     /* data */
     term(/* args */);

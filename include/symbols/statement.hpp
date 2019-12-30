@@ -31,7 +31,7 @@ statement::~statement() {}
 std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it){
     std::shared_ptr<statement> stmt(new statement);
 
-    token t = nextToken(it);
+    token t = popToken(it);
 
     if(t.type != RETURN_KEYWORD){
         std::cerr << "Statement: expected return keyword\n";
@@ -41,7 +41,7 @@ std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it){
 
     stmt->children.push_back(expression::parse(it));
 
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != SEMICOLON){
         std::cerr << "Statement: missing semicolon\n";
         exit(1);

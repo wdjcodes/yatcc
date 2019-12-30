@@ -37,28 +37,28 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     std::shared_ptr<function> func(new function);
 
-    token t = nextToken(it);
+    token t = popToken(it);
     if(t.type != INT_KEYWORD){
         std::cerr << "Function: expected int keyword\n";
         exit(1);
     }
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != IDENTIFIER){
         std::cerr << "Function: expected identifier\n";
         exit(1);
     }
     func->value = t.token_string;
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != PARENTH_OPEN){
         std::cerr << "Function: expected '('\n";
         exit(1);
     }
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != PARENTH_CLOSE){
         std::cerr << "Function: expected ')'\n";
         exit(1);
     }
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != BRACE_OPEN){
         std::cerr << "Function: expected '{'\n";
         exit(1);
@@ -66,7 +66,7 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     func->children.push_back(statement::parse(it));
     
-    t = nextToken(it);
+    t = popToken(it);
     if(t.type != BRACE_CLOSE){
         std::cerr << "Function: expected '}'\n";
         exit(1);

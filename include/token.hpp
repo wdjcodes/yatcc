@@ -24,7 +24,10 @@ enum token_type {
   MINUS,
   TILDE,
   EXCLAMATION_PT,
-  SEMICOLON
+  SEMICOLON,
+  PLUS,
+  ASTERISK,
+  F_SLASH
 };
 
 typedef struct token_t {

@@ -27,7 +27,8 @@ protected:
     /* data */
     symbol_type type;
     std::list<std::shared_ptr<symbol>> children;
-    static token nextToken(std::list<token>::iterator&);
+    static token popToken(std::list<token>::iterator&);
+    static token peekToken(std::list<token>::iterator&);
 public:
     virtual void print();
     virtual void codeGen(std::ofstream&);
@@ -43,10 +44,14 @@ inline symbol::~symbol()
 {
 }
 
-inline token symbol::nextToken(std::list<token>::iterator& it){
+inline token symbol::popToken(std::list<token>::iterator& it){
     token t = *it;
     it++;
     return t;
+}
+
+inline token symbol::peekToken(std::list<token>::iterator& it){
+    return *it;
 }
 
 inline void symbol::print(){}

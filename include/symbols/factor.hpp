@@ -2,13 +2,14 @@
 #define __FACTOR_HPP
 
 #include "symbol.hpp"
+#include "term.hpp"
 #include "../token.hpp"
 
 using namespace tokens;
 
 namespace symbols {
 
-class factor : public virtual symbol
+class factor : public virtual term
 {
 protected:
     /* data */
