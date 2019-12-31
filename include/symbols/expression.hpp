@@ -13,7 +13,7 @@ class expression : public virtual symbol
 private:
     std::shared_ptr<expression> left;
     std::shared_ptr<expression> right;
-    token op;
+    token_type op;
 protected:
     /* data */
     expression(/* args */);
@@ -34,7 +34,7 @@ inline expression::expression(token o, std::shared_ptr<expression> l, std::share
     if(o.type != PLUS && o.type != MINUS){
         throw "Bad Expression operator";
     }
-    op = o;
+    op = o.type;
 }
 
 inline expression::~expression(){}

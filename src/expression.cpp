@@ -23,11 +23,26 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
 
 
 void expression::codeGen(std::ofstream& ofs){
-    left->codeGen(ofs);
-    ofs << "push\t%rax\n";
+    // Process right operand first so that
+    // ordering is correct for subtraction
     right->codeGen(ofs);
+    ofs << "push\t%rax\n";
+    left->codeGen(ofs);
     ofs << "pop\t%rcx\n";
-    ofs << "addl\t%ecx, %eax\n";
+    switch(op){
+        case PLUS:{
+            ofs << "addl\t%ecx, %eax\n";
+            break;
+        }
+        case MINUS:{
+            ofs << "subl\t%ecx, %eax\n";
+            break;
+        }
+        default:{
+            std::cerr << "Invalid op: Expected PLUS or MINUS\n";
+            exit(1);
+        }
+    }
 }
 
 }

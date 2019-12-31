@@ -88,7 +88,6 @@ void function::codeGen(std::ofstream& ofs){
 
     ofs << ".globl " << value << "\n" << value << ":\n";
     for(symbol_ptr s : children){
-        ofs << "\t";
         s->codeGen(ofs);
     }
 
