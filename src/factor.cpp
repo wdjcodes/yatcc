@@ -120,6 +120,37 @@ void boolNotOperator::codeGen(std::ofstream& ofs){
 }
 
 
+class parenGroup : public factor
+{
+private:
+    /* data */
+    std::shared_ptr<expression> exp;
+public:
+    parenGroup(/* args */);
+    ~parenGroup();
+    friend factor;
+    virtual void codeGen(std::ofstream&);
+    virtual void print();
+};
+
+parenGroup::parenGroup(/* args */)
+{
+}
+
+parenGroup::~parenGroup()
+{
+}
+
+void parenGroup::codeGen(std::ofstream& ofs){
+    exp->codeGen(ofs);
+}
+
+void parenGroup::print(){
+    std::cout << "(";
+    exp->print();
+    std::cout << ")";
+}
+
 
 
 std::shared_ptr<factor> factor::parse(std::list<token>::iterator& it){
@@ -154,6 +185,17 @@ std::shared_ptr<factor> factor::parse(std::list<token>::iterator& it){
         case EXCLAMATION_PT: {
             std::shared_ptr<boolNotOperator> f(new boolNotOperator);
             f->operand = factor::parse(it);
+            fact = f;
+            break;
+        }
+        case PARENTH_OPEN: {
+            std::shared_ptr<parenGroup> f(new parenGroup);
+            f->exp = expression::parse(it);
+            t = popToken(it);
+            if(t.type != PARENTH_CLOSE){
+                std::cerr << "Factor: Missing ')'\n";
+                exit(1);
+            }
             fact = f;
             break;
         }
