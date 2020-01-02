@@ -1,6 +1,6 @@
 
 #include <symbols/symbol.hpp>
-#include <symbols/factor.hpp>
+#include <symbols/expressions/factor.hpp>
 #include <token.hpp>
 
 using namespace tokens;

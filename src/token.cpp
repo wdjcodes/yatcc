@@ -24,8 +24,8 @@ void init_token_regex_map(){
   token_regex_map[EXCLAMATION_PT] = "^!";
   token_regex_map[SEMICOLON] = "^;";
   token_regex_map[PLUS] = "^\\+";
-  token_regex_map[ASTERISK] = "^\\*";
-  token_regex_map[F_SLASH] = "^/";
+  token_regex_map[MULTIPLY] = "^\\*";
+  token_regex_map[DIVIDE] = "^/";
 }
 
 void init_tokens(){

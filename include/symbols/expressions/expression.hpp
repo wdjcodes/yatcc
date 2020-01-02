@@ -1,8 +1,8 @@
 #ifndef __EXPRESSION_HPP
 #define __EXPRESSION_HPP
 
-#include "symbol.hpp"
-#include "../token.hpp"
+#include "../symbol.hpp"
+#include "../../token.hpp"
 
 using namespace tokens;
 

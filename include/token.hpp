@@ -26,8 +26,8 @@ enum token_type {
   EXCLAMATION_PT,
   SEMICOLON,
   PLUS,
-  ASTERISK,
-  F_SLASH
+  MULTIPLY,
+  DIVIDE
 };
 
 typedef struct token_t {

@@ -2,7 +2,7 @@
 #define __STATEMENT_HPP
 
 #include "symbol.hpp"
-#include "expression.hpp"
+#include "expressions/expression.hpp"
 #include "../token.hpp"
 
 using namespace tokens;

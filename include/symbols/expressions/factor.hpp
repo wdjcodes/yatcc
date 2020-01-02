@@ -1,9 +1,8 @@
 #ifndef __FACTOR_HPP
 #define __FACTOR_HPP
 
-#include "symbol.hpp"
-#include "term.hpp"
-#include "../token.hpp"
+#include "expression.hpp"
+#include "../../token.hpp"
 
 using namespace tokens;
 

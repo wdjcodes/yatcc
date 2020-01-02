@@ -1,9 +1,8 @@
 #ifndef __TERM_HPP
 #define __TERM_HPP
 
-#include "symbol.hpp"
 #include "expression.hpp"
-#include "../token.hpp"
+#include "../../token.hpp"
 
 using namespace tokens;
 
@@ -36,7 +35,7 @@ inline term::term(token o, std::shared_ptr<expression> l, std::shared_ptr<expres
     type = TERM;
     left = l;
     right = r;
-    if(o.type != ASTERISK && o.type != F_SLASH){
+    if(o.type != MULTIPLY && o.type != DIVIDE){
         throw "Bad Term operation\n";
     }
     op = o.type;
