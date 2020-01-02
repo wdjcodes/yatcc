@@ -43,6 +43,7 @@ std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it){
 
     t = popToken(it);
     if(t.type != SEMICOLON){
+        stmt->print();
         std::cerr << "Statement: missing semicolon\n";
         exit(1);
     }

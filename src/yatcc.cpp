@@ -22,10 +22,12 @@ std::list<token> lex(std::istream_iterator<std::string> it){
 
   while(it != eos){
     std::string token_str = *it;
+    std::cout << token_str << std::endl;
     token t;
     while(token_str.length() > 0){
       std::smatch match;
       int keyword = 0;
+      int match_found = 0;
       for(std::pair<token_type, std::regex> tok_pair : keyword_regex_map){
         if(std::regex_search(token_str, match, tok_pair.second)){
           t.type = tok_pair.first;
@@ -45,8 +47,13 @@ std::list<token> lex(std::istream_iterator<std::string> it){
           t.token_string = match.str();
           tokens.push_back(t);
           token_str = std::regex_replace(token_str, tok_pair.second, "", std::regex_constants::format_first_only);
+          match_found = 1;
           break;
         }
+      }
+      if(!match_found){
+        std::cerr << "Bad Token: " << token_str << std::endl;
+        exit(1);
       }
     }
     it++;

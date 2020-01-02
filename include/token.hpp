@@ -27,7 +27,8 @@ enum token_type {
   SEMICOLON,
   PLUS,
   MULTIPLY,
-  DIVIDE
+  DIVIDE,
+  BOOL_OR
 };
 
 typedef struct token_t {

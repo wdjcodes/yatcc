@@ -24,7 +24,7 @@ test-%:
 	cd $(BUILD_ROOT)/testing; ./test_compiler.sh $(BUILD_ROOT)/$(EXE) $*
 
 $(OUT_DIR)/$(EXE): $(OBJS)
-	$(CC) $(CPP_FLAGS) $(LOCAL_CPP_INCLUDES) $(OBJS) -o $(EXE)
+	$(CC) $(CPP_FLAGS) $(LOCAL_CPP_INCLUDES) $(OBJS) -o $(OUT_DIR)/$(EXE)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(dir $@)
