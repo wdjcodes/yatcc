@@ -10,13 +10,12 @@ namespace symbols {
 
 class expression : public virtual symbol
 {
-private:
-    std::shared_ptr<expression> left;
-    std::shared_ptr<expression> right;
-    token_type op;
 protected:
     /* data */
     expression(/* args */);
+    std::shared_ptr<expression> left;
+    std::shared_ptr<expression> right;
+    token_type op;
 public:
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
     void codeGen(std::ofstream&);

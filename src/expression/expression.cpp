@@ -12,7 +12,7 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
     token tok = peekToken(it);
     while(tok.type == MINUS || tok.type == PLUS){
         popToken(it);
-        std::shared_ptr<term> r = term::parse(it);
+        std::shared_ptr<expression> r = term::parse(it);
         // l = std::shared_ptr<expression>(expression(tok, l, r));
         l = std::make_shared<expression>(tok, l, r);
         tok = peekToken(it);

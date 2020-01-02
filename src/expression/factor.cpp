@@ -42,7 +42,7 @@ class negationOperator : public factor
 {
 private:
     /* data */
-    std::shared_ptr<factor> operand;
+    // std::shared_ptr<factor> operand;
 public:
     negationOperator(/* args */);
     ~negationOperator();
@@ -69,7 +69,7 @@ class bitNotOperator : public factor
 {
 private:
     /* data */
-    std::shared_ptr<factor> operand;
+    // std::shared_ptr<factor> operand;
 public:
     bitNotOperator(/* args */);
     ~bitNotOperator();
@@ -96,7 +96,7 @@ class boolNotOperator : public factor
 {
 private:
     /* data */
-    std::shared_ptr<factor> operand;
+    // std::shared_ptr<factor> operand;
 public:
     boolNotOperator(/* args */);
     ~boolNotOperator();
@@ -124,7 +124,7 @@ class parenGroup : public factor
 {
 private:
     /* data */
-    std::shared_ptr<expression> exp;
+    // std::shared_ptr<expression> exp;
 public:
     parenGroup(/* args */);
     ~parenGroup();
@@ -142,18 +142,18 @@ parenGroup::~parenGroup()
 }
 
 void parenGroup::codeGen(std::ofstream& ofs){
-    exp->codeGen(ofs);
+    operand->codeGen(ofs);
 }
 
 void parenGroup::print(){
     std::cout << "(";
-    exp->print();
+    operand->print();
     std::cout << ")";
 }
 
 
 
-std::shared_ptr<factor> factor::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it){
 
     std::shared_ptr<factor> fact;
 
@@ -190,7 +190,7 @@ std::shared_ptr<factor> factor::parse(std::list<token>::iterator& it){
         }
         case PARENTH_OPEN: {
             std::shared_ptr<parenGroup> f(new parenGroup);
-            f->exp = expression::parse(it);
+            f->operand = expression::parse(it);
             t = popToken(it);
             if(t.type != PARENTH_CLOSE){
                 std::cerr << "Factor: Missing ')'\n";
