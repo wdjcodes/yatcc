@@ -27,6 +27,7 @@ void init_token_regex_map(){
   token_regex_map[MULTIPLY] = "^\\*";
   token_regex_map[DIVIDE] = "^/";
   token_regex_map[BOOL_OR] = "^\\|\\|";
+  token_regex_map[BOOL_AND] = "^\\&\\&";
 }
 
 void init_tokens(){
