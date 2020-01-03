@@ -25,6 +25,10 @@ void init_token_regex_map(){
   token_regex_map[BOOL_AND] = "^\\&\\&";
   token_regex_map[EQUAL] = "^==";
   token_regex_map[NEQUAL] = "^!=";
+  token_regex_map[LESS_THAN] = "^<";
+  token_regex_map[GRATER_THAN] = "^>";
+  token_regex_map[LESS_THAN_OR_EQUAL] = "^<=";
+  token_regex_map[GREATE_THAN_OR_EQUAL] = "^>=";
 }
 
 void init_tokens(){

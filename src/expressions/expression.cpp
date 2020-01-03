@@ -12,7 +12,6 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
     return exp;
 }
 
-
 void expression::codeGen(std::ofstream& ofs){}
 
 }

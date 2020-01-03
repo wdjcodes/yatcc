@@ -1,6 +1,5 @@
 #include <symbols/expressions/equality.hpp>
-#include <symbols/expressions/additive.hpp>
-#include <codegen.hpp>
+#include <symbols/expressions/relational.hpp>
 
 using namespace tokens;
 
@@ -8,11 +7,11 @@ namespace symbols {
 
 std::shared_ptr<expression> equalityExpression::parse(std::list<token>::iterator& it){
     
-    std::shared_ptr<expression> l = additiveExpression::parse(it);
+    std::shared_ptr<expression> l = relationalExpression::parse(it);
     token tok = peekToken(it);
     while(tok.type == EQUAL || tok.type == NEQUAL){
         popToken(it);
-        std::shared_ptr<expression> r = additiveExpression::parse(it);
+        std::shared_ptr<expression> r = relationalExpression::parse(it);
         l = std::make_shared<equalityExpression>(tok, l, r);
         tok = peekToken(it);
     }

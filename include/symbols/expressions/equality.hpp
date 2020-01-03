@@ -1,5 +1,5 @@
-#ifndef __BOOLOR_EXP_HPP
-#define __BOOLOR_EXP_HPP
+#ifndef __EQUALITY_EXP_HPP
+#define __EQUALITY_EXP_HPP
 
 #include "expression.hpp"
 #include "../../token.hpp"

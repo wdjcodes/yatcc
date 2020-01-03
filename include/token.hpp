@@ -21,6 +21,8 @@ enum token_type {
   BOOL_AND,
   EQUAL,
   NEQUAL,
+  LESS_THAN_OR_EQUAL,
+  GREATE_THAN_OR_EQUAL,
 
   //Single Character punctuation/operators
   PARENTH_OPEN,
@@ -34,6 +36,8 @@ enum token_type {
   PLUS,
   MULTIPLY,
   DIVIDE,
+  LESS_THAN,
+  GRATER_THAN,
 
 
   // Non-Keyword Tokens
