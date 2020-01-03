@@ -63,7 +63,7 @@ void statement::codeGen(std::ofstream& ofs){
     for(symbol_ptr s : children){
         s->codeGen(ofs);
     }
-    ofs << "ret";
+    ofs << "ret\n";
 }
 
 

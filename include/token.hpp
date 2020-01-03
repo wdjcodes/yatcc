@@ -4,19 +4,25 @@
 
 #include <string>
 #include <regex>
-#include <map>
+#include <vector>
 
 
 namespace tokens {
 
+//TOKENS will be lexed as they appear in the following enum from top to bottom
+//Changing the ordering of some tokens may cause lexxing to break
 enum token_type {
   // Keywords
-  RETURN_KEYWORD,
+  RETURN_KEYWORD,     //RETURN_KEYWORD must come first - if it is moved the loop in 
   INT_KEYWORD,
 
-  // Non-Keyword Tokens
-  IDENTIFIER,
-  INT_LITERAL,
+  //Two character punctuation/operators
+  BOOL_OR,
+  BOOL_AND,
+  EQUAL,
+  NEQUAL,
+
+  //Single Character punctuation/operators
   PARENTH_OPEN,
   PARENTH_CLOSE,
   BRACE_OPEN,
@@ -28,8 +34,14 @@ enum token_type {
   PLUS,
   MULTIPLY,
   DIVIDE,
-  BOOL_OR,
-  BOOL_AND
+
+
+  // Non-Keyword Tokens
+  IDENTIFIER,
+  INT_LITERAL,
+
+  //Dummy Value - must be last in the enum
+  NUM_TOKEN_TYPES
 };
 
 typedef struct token_t {
@@ -37,8 +49,7 @@ typedef struct token_t {
   std::string token_string;
 }token;
 
-extern std::map<token_type, std::regex> token_regex_map;
-extern std::map<token_type, std::regex> keyword_regex_map;
+extern std::vector<std::regex>token_regex_map;
 
 void init_tokens();
 

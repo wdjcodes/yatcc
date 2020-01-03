@@ -3,16 +3,11 @@
 
 namespace tokens {
 
-std::map<token_type, std::regex> token_regex_map;
-std::map<token_type, std::regex> keyword_regex_map;
-
-void init_keyword_regex_map(){
-  keyword_regex_map[RETURN_KEYWORD] = "^return\\b";
-  keyword_regex_map[INT_KEYWORD] = "^int\\b";
-}
-
+std::vector<std::regex> token_regex_map(NUM_TOKEN_TYPES);
 
 void init_token_regex_map(){
+  token_regex_map[RETURN_KEYWORD] = "^return\\b";
+  token_regex_map[INT_KEYWORD] = "^int\\b";
   token_regex_map[IDENTIFIER] = "^[a-zA-Z_]\\w*";
   token_regex_map[INT_LITERAL] = "^[0-9]+";
   token_regex_map[PARENTH_OPEN] = "^\\(";
@@ -28,10 +23,11 @@ void init_token_regex_map(){
   token_regex_map[DIVIDE] = "^/";
   token_regex_map[BOOL_OR] = "^\\|\\|";
   token_regex_map[BOOL_AND] = "^\\&\\&";
+  token_regex_map[EQUAL] = "^==";
+  token_regex_map[NEQUAL] = "^!=";
 }
 
 void init_tokens(){
-  init_keyword_regex_map();
   init_token_regex_map();
 }
 
