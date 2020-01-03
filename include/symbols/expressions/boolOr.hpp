@@ -15,9 +15,9 @@ private:
     /* data */
     boolOrExpression(/* args */);
 public:
-    boolOrExpression(std::shared_ptr<expression>, std::shared_ptr<expression>);
+    boolOrExpression(std::shared_ptr<expression>, std::shared_ptr<expression>, std::shared_ptr<scopingSymbol>);
     void codeGen(std::ofstream&);
-    static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     ~boolOrExpression();
 };
 
@@ -25,9 +25,10 @@ inline boolOrExpression::boolOrExpression(/* args */)
 {
 }
 
-inline boolOrExpression::boolOrExpression(std::shared_ptr<expression>l, std::shared_ptr<expression>r){
+inline boolOrExpression::boolOrExpression(std::shared_ptr<expression>l, std::shared_ptr<expression>r, std::shared_ptr<scopingSymbol> s){
     left = l;
     right = r;
+    scope = s;
 }
 
 inline boolOrExpression::~boolOrExpression()

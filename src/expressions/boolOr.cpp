@@ -6,14 +6,14 @@ using namespace tokens;
 
 namespace symbols {
 
-std::shared_ptr<expression> boolOrExpression::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> boolOrExpression::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     
-    std::shared_ptr<expression> l = boolAndExpression::parse(it);
+    std::shared_ptr<expression> l = boolAndExpression::parse(it, scope);
     token tok = peekToken(it);
     while(tok.type == BOOL_OR){
         popToken(it);
-        std::shared_ptr<expression> r = boolAndExpression::parse(it);
-        l = std::make_shared<boolOrExpression>(l, r);
+        std::shared_ptr<expression> r = boolAndExpression::parse(it, scope);
+        l = std::make_shared<boolOrExpression>(l, r, scope);
         tok = peekToken(it);
     }
 

@@ -8,14 +8,14 @@ namespace symbols {
 
 const std::vector<token_type> term::validOps = {MULTIPLY, DIVIDE};
 
-std::shared_ptr<expression> term::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> term::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
 
-    std::shared_ptr<expression> l = factor::parse(it);
+    std::shared_ptr<expression> l = factor::parse(it, scope);
     token tok = peekToken(it);
     while(tok.type == MULTIPLY || tok.type == DIVIDE){
         popToken(it);
-        std::shared_ptr<expression> r = factor::parse(it);
-        l = std::make_shared<term>(tok, l, r);
+        std::shared_ptr<expression> r = factor::parse(it, scope);
+        l = std::make_shared<term>(tok, l, r, scope);
         tok = peekToken(it);
     }
 

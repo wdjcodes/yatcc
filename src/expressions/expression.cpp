@@ -6,9 +6,9 @@ using namespace tokens;
 
 namespace symbols {
 
-std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     //Just a dummy to call the lowest precedent expression parser first
-    std::shared_ptr<expression> exp = boolOrExpression::parse(it);
+    std::shared_ptr<expression> exp = boolOrExpression::parse(it, scope);
     return exp;
 }
 

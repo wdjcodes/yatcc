@@ -8,6 +8,8 @@ using namespace tokens;
 
 namespace symbols {
 
+class scopingSymbol;
+
 class expression : public virtual symbol
 {
 private:
@@ -20,8 +22,9 @@ protected:
     token_type op;
     template<class T>
     static bool is_valid_op(token_type);
+    std::shared_ptr<scopingSymbol> scope;
 public:
-    static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     void codeGen(std::ofstream&);
     expression(token, std::shared_ptr<expression>, std::shared_ptr<expression>);
     ~expression();

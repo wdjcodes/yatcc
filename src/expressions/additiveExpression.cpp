@@ -8,14 +8,14 @@ namespace symbols {
 
 const std::vector<token_type> additiveExpression::validOps = {PLUS, MINUS};
 
-std::shared_ptr<expression> additiveExpression::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> additiveExpression::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     
-    std::shared_ptr<expression> l = term::parse(it);
+    std::shared_ptr<expression> l = term::parse(it, scope);
     token tok = peekToken(it);
     while(tok.type == MINUS || tok.type == PLUS){
         popToken(it);
-        std::shared_ptr<expression> r = term::parse(it);
-        l = std::make_shared<additiveExpression>(tok, l, r);
+        std::shared_ptr<expression> r = term::parse(it, scope);
+        l = std::make_shared<additiveExpression>(tok, l, r, scope);
         tok = peekToken(it);
     }
 

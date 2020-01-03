@@ -38,6 +38,7 @@ enum token_type {
   DIVIDE,
   LESS_THAN,
   GRATER_THAN,
+  ASSIGNMENT,
 
 
   // Non-Keyword Tokens

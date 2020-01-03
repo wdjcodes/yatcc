@@ -3,6 +3,7 @@
 
 #include "symbol.hpp"
 #include "expressions/expression.hpp"
+#include "scopingSymbol.hpp"
 #include "../token.hpp"
 
 using namespace tokens;
@@ -13,60 +14,22 @@ class statement : public typedSymbol<std::string>
 {
 private:
     /* data */
+protected:
     statement(/* args */);
+    std::shared_ptr<scopingSymbol> scope;
 public:
     virtual void print();
-    static std::shared_ptr<statement> parse(std::list<token>::iterator&);
+    static std::shared_ptr<statement> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     void codeGen(std::ofstream&);
     ~statement();
 };
 
-statement::statement(/* args */)
+inline statement::statement(/* args */)
 {
     type = STATEMENT;
 }
 
-statement::~statement() {}
-
-std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it){
-    std::shared_ptr<statement> stmt(new statement);
-
-    token t = popToken(it);
-
-    if(t.type != RETURN_KEYWORD){
-        std::cerr << "Statement: expected return keyword\n";
-        exit(1); 
-    }
-    stmt->value = t.token_string;
-
-    stmt->children.push_back(expression::parse(it));
-
-    t = popToken(it);
-    if(t.type != SEMICOLON){
-        stmt->print();
-        std::cerr << "Statement: missing semicolon\n";
-        exit(1);
-    }
-    return stmt;
-}
-
-void statement::print(){
-    std::cout << "STATEMENT: " << value << "\n";
-
-    for(symbol_ptr s : children){
-        s->print();
-    }
-}
-
-void statement::codeGen(std::ofstream& ofs){
-    
-    for(symbol_ptr s : children){
-        s->codeGen(ofs);
-    }
-    ofs << "ret\n";
-}
-
-
+inline statement::~statement() {}
 
 }
 

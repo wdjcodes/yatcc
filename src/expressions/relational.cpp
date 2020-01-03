@@ -8,14 +8,14 @@ namespace symbols {
 const std::vector<token_type> relationalExpression::validOps = {LESS_THAN, GRATER_THAN, LESS_THAN_OR_EQUAL, GREATE_THAN_OR_EQUAL};
 
 
-std::shared_ptr<expression> relationalExpression::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> relationalExpression::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     
-    std::shared_ptr<expression> l = additiveExpression::parse(it);
+    std::shared_ptr<expression> l = additiveExpression::parse(it, scope);
     token tok = peekToken(it);
     while(isValidOp(tok.type)){
         popToken(it);
-        std::shared_ptr<expression> r = additiveExpression::parse(it);
-        l = std::make_shared<relationalExpression>(tok, l, r);
+        std::shared_ptr<expression> r = additiveExpression::parse(it, scope);
+        l = std::make_shared<relationalExpression>(tok, l, r, scope);
         tok = peekToken(it);
     }
 

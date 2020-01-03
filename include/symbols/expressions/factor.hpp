@@ -16,7 +16,7 @@ protected:
     std::shared_ptr<expression> operand;
 public:
     // static std::shared_ptr<factor> parse(std::list<token>::iterator&);
-    static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     ~factor();
 };
 inline factor::factor(/* args */)

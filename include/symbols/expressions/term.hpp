@@ -17,10 +17,10 @@ protected:
     /* data */
     term(/* args */);
 public:
-    static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     static bool isValidOp(token_type);
     void codeGen(std::ofstream&);
-    term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r);
+    term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r, std::shared_ptr<scopingSymbol> s);
     ~term();
     friend expression;
 };
@@ -29,10 +29,11 @@ inline term::term(/* args */)
     type = TERM;
 }
 
-inline term::term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r){
+inline term::term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r, std::shared_ptr<scopingSymbol> s){
     type = TERM;
     left = l;
     right = r;
+    scope = s;
     if(!isValidOp(o.type)){
         throw "Bad Term operation\n";
     }

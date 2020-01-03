@@ -7,14 +7,14 @@ namespace symbols {
 
 const std::vector<token_type> equalityExpression::validOps = {EQUAL, NEQUAL};
 
-std::shared_ptr<expression> equalityExpression::parse(std::list<token>::iterator& it){
+std::shared_ptr<expression> equalityExpression::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     
-    std::shared_ptr<expression> l = relationalExpression::parse(it);
+    std::shared_ptr<expression> l = relationalExpression::parse(it, scope);
     token tok = peekToken(it);
     while(isValidOp(tok.type)){
         popToken(it);
-        std::shared_ptr<expression> r = relationalExpression::parse(it);
-        l = std::make_shared<equalityExpression>(tok, l, r);
+        std::shared_ptr<expression> r = relationalExpression::parse(it, scope);
+        l = std::make_shared<equalityExpression>(tok, l, r, scope);
         tok = peekToken(it);
     }
 

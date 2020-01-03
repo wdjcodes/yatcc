@@ -151,9 +151,23 @@ void parenGroup::print(){
     std::cout << ")";
 }
 
+class variable : public factor
+{
+private:
+    /* data */
+    std::string name;
+public:
+    variable(/* args */);
+    ~variable();
+    friend factor;
+};
+variable::variable(/* args */){}
+variable::~variable(){}
 
 
-std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it){
+
+
+std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
 
     std::shared_ptr<factor> fact;
 
@@ -172,25 +186,25 @@ std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it){
         }
         case MINUS: {
             std::shared_ptr<negationOperator> f(new negationOperator);
-            f->operand = factor::parse(it);
+            f->operand = factor::parse(it, scope);
             fact = f;
             break;
         } 
         case TILDE: {
             std::shared_ptr<bitNotOperator> f(new bitNotOperator);
-            f->operand = factor::parse(it);
+            f->operand = factor::parse(it, scope);
             fact = f;
             break;
         }
         case EXCLAMATION_PT: {
             std::shared_ptr<boolNotOperator> f(new boolNotOperator);
-            f->operand = factor::parse(it);
+            f->operand = factor::parse(it, scope);
             fact = f;
             break;
         }
         case PARENTH_OPEN: {
             std::shared_ptr<parenGroup> f(new parenGroup);
-            f->operand = expression::parse(it);
+            f->operand = expression::parse(it, scope);
             t = popToken(it);
             if(t.type != PARENTH_CLOSE){
                 std::cerr << "Factor: Missing ')'\n";
@@ -199,8 +213,14 @@ std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it){
             fact = f;
             break;
         }
+        case IDENTIFIER: {
+            std::shared_ptr<variable> f(new variable);
+            f->name = t.token_string;
+            f->scope = scope;
+            break;
+        }
         default: {
-            std::cerr << "factor: Not a valid factor\n";
+            std::cerr << "factor: Not a valid factor: " << t.token_string << "\n";
             exit(1);
         }
 
