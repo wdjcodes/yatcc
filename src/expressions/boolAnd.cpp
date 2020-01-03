@@ -1,5 +1,5 @@
 #include <symbols/expressions/boolAnd.hpp>
-#include <symbols/expressions/additive.hpp>
+#include <symbols/expressions/equality.hpp>
 #include <codegen.hpp>
 
 using namespace tokens;
@@ -8,11 +8,11 @@ namespace symbols {
 
 std::shared_ptr<expression> boolAndExpression::parse(std::list<token>::iterator& it){
     
-    std::shared_ptr<expression> l = additiveExpression::parse(it);
+    std::shared_ptr<expression> l = equalityExpression::parse(it);
     token tok = peekToken(it);
     while(tok.type == BOOL_AND){
         popToken(it);
-        std::shared_ptr<expression> r = additiveExpression::parse(it);
+        std::shared_ptr<expression> r = equalityExpression::parse(it);
         l = std::make_shared<boolAndExpression>(l, r);
         tok = peekToken(it);
     }
