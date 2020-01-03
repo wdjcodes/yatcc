@@ -2,8 +2,8 @@
 #define __SCOPING_SYMBOL_HPP
 
 #include "symbol.hpp"
-#include "variable.hpp"
 #include "expressions/expression.hpp"
+#include "expressions/variable.hpp"
 
 namespace symbols{
 
@@ -14,14 +14,16 @@ protected:
     std::list<std::shared_ptr<variable>> vars;
     std::string value;  //Should probably be changed later
     int stackOffset;
+    void prologueCodeGen(std::ofstream&);
 public:
     std::shared_ptr<variable> findVarByName(std::string);
-    // std::shared_ptr<variable> createVariable(std::string, std::shared_ptr<expression>);
+    std::shared_ptr<variable> createVariable(std::string, std::shared_ptr<expression>, std::shared_ptr<scopingSymbol>);
+    void epilogueCodeGen(std::ofstream&);
     scopingSymbol(/* args */);
     ~scopingSymbol();
 };
 
-inline scopingSymbol::scopingSymbol(/* args */){stackOffset = -4;}
+inline scopingSymbol::scopingSymbol(/* args */){stackOffset = -8;}
 inline scopingSymbol::~scopingSymbol(){}
 
 

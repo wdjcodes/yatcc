@@ -59,6 +59,7 @@ void function::print(){
 void function::codeGen(std::ofstream& ofs){
 
     ofs << ".globl " << value << "\n" << value << ":\n";
+    prologueCodeGen(ofs);
     for(symbol_ptr s : children){
         s->codeGen(ofs);
     }

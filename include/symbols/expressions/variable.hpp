@@ -1,7 +1,7 @@
 #ifndef __VARIABLE_HPP
 #define __VARIABLE_HPP
 
-#include "expressions/expression.hpp"
+#include "expression.hpp"
 
 namespace symbols {
 
@@ -11,7 +11,7 @@ private:
     /* data */
     std::string name;
     std::shared_ptr<expression> value;
-    int offset;
+    int stackBaseOffset;
 public:
     virtual void codeGen(std::ofstream&);
     virtual void print();
@@ -24,7 +24,7 @@ public:
 
 inline variable::variable(std::string n, int o, std::shared_ptr<expression> v, std::shared_ptr<scopingSymbol> s){
     name = n;
-    offset = o;
+    stackBaseOffset = o;
     value = v;
     scope = s;
 }
