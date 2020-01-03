@@ -17,10 +17,11 @@ private:
     static const std::vector<token_type> validOps;
 public:
     relationalExpression(token, std::shared_ptr<expression>, std::shared_ptr<expression>);
-    static bool isvalidOp(token_type);
+    static bool isValidOp(token_type);
     void codeGen(std::ofstream&);
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
     ~relationalExpression();
+    friend expression;
 };
 
 inline relationalExpression::relationalExpression(/* args */){}
@@ -28,7 +29,7 @@ inline relationalExpression::relationalExpression(/* args */){}
 inline relationalExpression::relationalExpression(token o, std::shared_ptr<expression>l, std::shared_ptr<expression>r){
     left = l;
     right = r;
-    if(!isvalidOp(o.type)){
+    if(!isValidOp(o.type)){
         std::cerr << "Bad Equality Operation\n";
         exit(1);
     }

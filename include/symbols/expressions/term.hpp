@@ -12,19 +12,17 @@ class term : public expression
 // class term : public typedSymbol<int>
 {
 private:
-    // // std::shared_ptr<term> pTerm;
-    // std::shared_ptr<term> left;
-    // std::shared_ptr<term> right;
-    // token_type op;
+    static const std::vector<token_type> validOps;
 protected:
     /* data */
     term(/* args */);
 public:
-    // static std::shared_ptr<term> parse(std::list<token>::iterator&);
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static bool isValidOp(token_type);
     void codeGen(std::ofstream&);
     term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r);
     ~term();
+    friend expression;
 };
 inline term::term(/* args */)
 {
@@ -35,7 +33,7 @@ inline term::term(token o, std::shared_ptr<expression> l, std::shared_ptr<expres
     type = TERM;
     left = l;
     right = r;
-    if(o.type != MULTIPLY && o.type != DIVIDE){
+    if(!isValidOp(o.type)){
         throw "Bad Term operation\n";
     }
     op = o.type;

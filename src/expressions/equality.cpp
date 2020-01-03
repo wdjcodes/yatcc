@@ -5,11 +5,13 @@ using namespace tokens;
 
 namespace symbols {
 
+const std::vector<token_type> equalityExpression::validOps = {EQUAL, NEQUAL};
+
 std::shared_ptr<expression> equalityExpression::parse(std::list<token>::iterator& it){
     
     std::shared_ptr<expression> l = relationalExpression::parse(it);
     token tok = peekToken(it);
-    while(tok.type == EQUAL || tok.type == NEQUAL){
+    while(isValidOp(tok.type)){
         popToken(it);
         std::shared_ptr<expression> r = relationalExpression::parse(it);
         l = std::make_shared<equalityExpression>(tok, l, r);
@@ -37,6 +39,10 @@ void equalityExpression::codeGen(std::ofstream& ofs){
         default:
             exit(1);
     }
+}
+
+bool equalityExpression::isValidOp(token_type t){
+    return is_valid_op<equalityExpression>(t);
 }
 
 }

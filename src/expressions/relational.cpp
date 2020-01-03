@@ -12,7 +12,7 @@ std::shared_ptr<expression> relationalExpression::parse(std::list<token>::iterat
     
     std::shared_ptr<expression> l = additiveExpression::parse(it);
     token tok = peekToken(it);
-    while(isvalidOp(tok.type)){
+    while(isValidOp(tok.type)){
         popToken(it);
         std::shared_ptr<expression> r = additiveExpression::parse(it);
         l = std::make_shared<relationalExpression>(tok, l, r);
@@ -50,8 +50,8 @@ void relationalExpression::codeGen(std::ofstream& ofs){
     }
 }
 
-bool relationalExpression::isvalidOp(token_type t){
-    return std::find(validOps.begin(), validOps.end(), t) != validOps.end();
+bool relationalExpression::isValidOp(token_type t){
+    return is_valid_op<relationalExpression>(t);
 }
 
 

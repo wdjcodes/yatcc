@@ -6,6 +6,8 @@ using namespace tokens;
 
 namespace symbols {
 
+const std::vector<token_type> term::validOps = {MULTIPLY, DIVIDE};
+
 std::shared_ptr<expression> term::parse(std::list<token>::iterator& it){
 
     std::shared_ptr<expression> l = factor::parse(it);
@@ -39,6 +41,10 @@ void term::codeGen(std::ofstream& ofs){
             exit(1);
         }
     }
+}
+
+bool term::isValidOp(token_type t){
+    return is_valid_op<term>(t);
 }
 
 }

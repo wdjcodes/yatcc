@@ -6,6 +6,8 @@ using namespace tokens;
 
 namespace symbols {
 
+const std::vector<token_type> additiveExpression::validOps = {PLUS, MINUS};
+
 std::shared_ptr<expression> additiveExpression::parse(std::list<token>::iterator& it){
     
     std::shared_ptr<expression> l = term::parse(it);
@@ -42,6 +44,10 @@ void additiveExpression::codeGen(std::ofstream& ofs){
             exit(1);
         }
     }
+}
+
+bool additiveExpression::isValidOp(token_type t){
+    return is_valid_op<additiveExpression>(t);
 }
 
 }

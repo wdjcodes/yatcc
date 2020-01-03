@@ -14,4 +14,6 @@ std::shared_ptr<expression> expression::parse(std::list<token>::iterator& it){
 
 void expression::codeGen(std::ofstream& ofs){}
 
+const std::vector<token_type> validOps = {};
+
 }

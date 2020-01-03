@@ -10,15 +10,18 @@ namespace symbols {
 
 class additiveExpression : public expression
 {
-
+private:
+    static const std::vector<token_type> validOps;
 protected:
     additiveExpression();
 
 public:
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
+    static bool isValidOp(token_type);
     void codeGen(std::ofstream&);
     additiveExpression(token, std::shared_ptr<expression>, std::shared_ptr<expression>);
     ~additiveExpression();
+    friend expression;
 };
 inline additiveExpression::additiveExpression(/* args */)
 {
@@ -28,7 +31,7 @@ inline additiveExpression::additiveExpression(/* args */)
 inline additiveExpression::additiveExpression(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r){
     left = l;
     right = r;
-    if(o.type != PLUS && o.type != MINUS){
+    if(!isValidOp(o.type)){
         throw "Bad Expression operator";
     }
     op = o.type;

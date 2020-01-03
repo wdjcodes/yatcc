@@ -10,12 +10,16 @@ namespace symbols {
 
 class expression : public virtual symbol
 {
+private:
+    static const std::vector<token_type> validOps;
 protected:
     /* data */
     expression(/* args */);
     std::shared_ptr<expression> left;
     std::shared_ptr<expression> right;
     token_type op;
+    template<class T>
+    static bool is_valid_op(token_type);
 public:
     static std::shared_ptr<expression> parse(std::list<token>::iterator&);
     void codeGen(std::ofstream&);
@@ -37,6 +41,11 @@ inline expression::expression(token o, std::shared_ptr<expression> l, std::share
 }
 
 inline expression::~expression(){}
+
+template<class T>
+inline bool expression::is_valid_op(token_type t){
+    return std::find(T::validOps.begin(), T::validOps.end(), t) != T::validOps.end();
+}
 
 }
 
