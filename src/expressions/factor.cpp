@@ -1,7 +1,7 @@
 
 #include <symbols/symbol.hpp>
 #include <symbols/expressions/factor.hpp>
-#include <symbols/expressions/variable.hpp>
+#include <symbols/expressions/variableReference.hpp>
 #include <token.hpp>
 
 using namespace tokens;
@@ -200,12 +200,14 @@ std::shared_ptr<expression> factor::parse(std::list<token>::iterator& it, std::s
             fact = f;
             break;
         }
-        // case IDENTIFIER: {
-        //     std::shared_ptr<variable> f(new variable);
-        //     f->name = t.token_string;
-        //     f->scope = scope;
-        //     break;
-        // }
+        case IDENTIFIER: {
+            it--;
+            return variableReference::parse(it, scope);
+            // std::shared_ptr<variable> f(new variable);
+            // f->name = t.token_string;
+            // f->scope = scope;
+            break;
+        }
         default: {
             std::cerr << "factor: Not a valid factor: " << t.token_string << "\n";
             exit(1);

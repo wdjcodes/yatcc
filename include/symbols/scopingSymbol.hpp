@@ -3,7 +3,7 @@
 
 #include "symbol.hpp"
 #include "expressions/expression.hpp"
-#include "expressions/variable.hpp"
+#include "variable.hpp"
 
 namespace symbols{
 
@@ -17,7 +17,7 @@ protected:
     void prologueCodeGen(std::ofstream&);
 public:
     std::shared_ptr<variable> findVarByName(std::string);
-    std::shared_ptr<variable> createVariable(std::string, std::shared_ptr<expression>, std::shared_ptr<scopingSymbol>);
+    std::shared_ptr<variable> createVariable(std::string);
     void epilogueCodeGen(std::ofstream&);
     scopingSymbol(/* args */);
     ~scopingSymbol();

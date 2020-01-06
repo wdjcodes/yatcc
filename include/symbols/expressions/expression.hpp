@@ -3,6 +3,7 @@
 
 #include "../symbol.hpp"
 #include "../../token.hpp"
+#include "../scopingSymbol.hpp"
 
 using namespace tokens;
 
