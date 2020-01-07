@@ -35,7 +35,7 @@ inline void intFactor::codeGen(std::ofstream& ofs){
 
 template <class T>
 inline void typedFactor<T>::print() {
-    std::cout << "factor: " << this->value << "\n";
+    std::cout << this->value;
 }
 
 

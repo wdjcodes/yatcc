@@ -1,5 +1,6 @@
 #include <symbols/function.hpp>
-#include <symbols/returnStatement.hpp>
+#include <symbols/statements/returnStatement.hpp>
+#include <symbols/variableDefinition.hpp>
 
 namespace symbols{
 
@@ -36,12 +37,22 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     t = peekToken(it);
     while(t.type != BRACE_CLOSE){
-        if(func->returnMissing){
-            func->children.push_back(statement::parse(it, func));
+        if(!func->returnMissing){
+            continue;
+        }
+        switch(t.type){
+            case INT_KEYWORD: {
+                func->children.push_back(variableDefinition::parse(it, func));
+                break;
+            }
+            default: {
+                func->children.push_back(statement::parse(it, func));
+            }
         }
         if(typeid(*func->children.back()) == typeid(returnStatement)){
             func->returnMissing = false;
         }
+        func->children.back()->print();
         t = peekToken(it);
     }
     

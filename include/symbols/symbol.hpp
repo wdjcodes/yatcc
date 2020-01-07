@@ -8,9 +8,11 @@
 
 #include "../token.hpp"
 
+using namespace tokens;
+
 namespace symbols {
 
-using namespace tokens;
+class scopingSymbol;
 
 enum symbol_type {
     PROGRAM,
@@ -29,6 +31,7 @@ protected:
     std::list<std::shared_ptr<symbol>> children;
     static token popToken(std::list<token>::iterator&);
     static token peekToken(std::list<token>::iterator&);
+    std::shared_ptr<scopingSymbol> scope;
 public:
     virtual void print();
     virtual void codeGen(std::ofstream&);

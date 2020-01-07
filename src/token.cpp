@@ -8,6 +8,8 @@ std::vector<std::regex> token_regex_map(NUM_TOKEN_TYPES);
 void init_token_regex_map(){
   token_regex_map[RETURN_KEYWORD] = "^return\\b";
   token_regex_map[INT_KEYWORD] = "^int\\b";
+  token_regex_map[IF_KEYWORD] = "^if\\b";
+  token_regex_map[ELSE_KEYWORD] = "^else\\b";
   token_regex_map[IDENTIFIER] = "^[a-zA-Z_]\\w*";
   token_regex_map[INT_LITERAL] = "^[0-9]+";
   token_regex_map[PARENTH_OPEN] = "^\\(";

@@ -7,7 +7,6 @@
 
 
 #include "scopingSymbol.hpp"
-#include "statement.hpp"
 #include "../token.hpp"
 
 using namespace tokens;

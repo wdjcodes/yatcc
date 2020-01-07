@@ -1,16 +1,16 @@
 #ifndef __STATEMENT_HPP
 #define __STATEMENT_HPP
 
-#include "symbol.hpp"
-// #include "expressions/expression.hpp"
-#include "scopingSymbol.hpp"
-#include "../token.hpp"
+// #include "symbol.hpp"
+// #include "../scopingSymbol.hpp"
+#include "../blockItem.hpp"
+// #include "../token.hpp"
 
 using namespace tokens;
 
 namespace symbols {
 
-class statement : public symbol
+class statement : public blockItem
 {
 private:
     /* data */

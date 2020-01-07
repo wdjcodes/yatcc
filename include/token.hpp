@@ -15,6 +15,8 @@ enum token_type {
   // Keywords
   RETURN_KEYWORD,     //RETURN_KEYWORD must come first - if it is moved the loop in 
   INT_KEYWORD,
+  IF_KEYWORD,
+  ELSE_KEYWORD,
 
   //Two character punctuation/operators
   BOOL_OR,

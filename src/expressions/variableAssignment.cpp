@@ -23,18 +23,20 @@ std::shared_ptr<expression> variableAssignment::parse(std::list<token>::iterator
         std::cerr << "Expected an assigner token\n";
         exit(1);
     }
-    t = peekToken(it);
-    std::cout << "Debug: " << t.token_string << "\n";
-
     var->value = expression::parse(it, scope);
-    t = peekToken(it);
-    std::cout << "Debug: " << t.token_string << "\n";
     return var;
 }
 
 void variableAssignment::codeGen(std::ofstream& ofs){
     value->codeGen(ofs);
     ofs << "mov\t%rax, " << var->getStackBaseOffset() << "(%rbp)\n";
+}
+
+void variableAssignment::print(){
+    var->print();
+    std::cout << " = ";
+    value->print();
+    std::cout << "\n";
 }
 
 }

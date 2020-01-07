@@ -2,7 +2,7 @@
 #define __RETURN_STATEMENT_HPP
 
 #include "statement.hpp"
-#include "expressions/expression.hpp"
+#include "../expressions/expression.hpp"
 
 namespace symbols {
 

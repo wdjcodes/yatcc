@@ -1,7 +1,7 @@
 #ifndef __EXPRESSION_HPP
 #define __EXPRESSION_HPP
 
-#include "../statement.hpp"
+#include "../statements/statement.hpp"
 #include "../../token.hpp"
 
 using namespace tokens;

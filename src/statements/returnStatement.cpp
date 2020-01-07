@@ -1,4 +1,4 @@
-#include <symbols/returnStatement.hpp>
+#include <symbols/statements/returnStatement.hpp>
 
 namespace symbols {
 
@@ -14,6 +14,7 @@ void returnStatement::print(){
     if(value){
         value->print();
     }
+    std::cout << "\n";
 }
 
 std::shared_ptr<returnStatement> returnStatement::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){

@@ -16,6 +16,7 @@ private:
 public:
     // virtual void print();
     virtual void codeGen(std::ofstream&);
+    virtual void print();
     static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     // static std::shared_ptr<variableAssignment> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     ~variableAssignment();
