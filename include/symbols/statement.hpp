@@ -2,7 +2,7 @@
 #define __STATEMENT_HPP
 
 #include "symbol.hpp"
-#include "expressions/expression.hpp"
+// #include "expressions/expression.hpp"
 #include "scopingSymbol.hpp"
 #include "../token.hpp"
 
@@ -10,7 +10,7 @@ using namespace tokens;
 
 namespace symbols {
 
-class statement : public typedSymbol<std::string>
+class statement : public symbol
 {
 private:
     /* data */

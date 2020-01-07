@@ -1,4 +1,5 @@
 #include <symbols/function.hpp>
+#include <symbols/returnStatement.hpp>
 
 namespace symbols{
 
@@ -35,7 +36,12 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     t = peekToken(it);
     while(t.type != BRACE_CLOSE){
-        func->children.push_back(statement::parse(it, func));
+        if(func->returnMissing){
+            func->children.push_back(statement::parse(it, func));
+        }
+        if(typeid(*func->children.back()) == typeid(returnStatement)){
+            func->returnMissing = false;
+        }
         t = peekToken(it);
     }
     
@@ -62,6 +68,10 @@ void function::codeGen(std::ofstream& ofs){
     prologueCodeGen(ofs);
     for(symbol_ptr s : children){
         s->codeGen(ofs);
+    }
+
+    if(returnMissing){
+        ofs << "mov\t$0,%eax\nmov\t%rbp,%rsp\npop\t%rbp\nret\n";
     }
 
 }

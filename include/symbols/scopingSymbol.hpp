@@ -2,7 +2,7 @@
 #define __SCOPING_SYMBOL_HPP
 
 #include "symbol.hpp"
-#include "expressions/expression.hpp"
+// #include "expressions/expression.hpp"
 #include "variable.hpp"
 
 namespace symbols{

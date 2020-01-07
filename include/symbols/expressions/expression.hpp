@@ -1,17 +1,16 @@
 #ifndef __EXPRESSION_HPP
 #define __EXPRESSION_HPP
 
-#include "../symbol.hpp"
+#include "../statement.hpp"
 #include "../../token.hpp"
-#include "../scopingSymbol.hpp"
 
 using namespace tokens;
 
 namespace symbols {
 
-class scopingSymbol;
+// class scopingSymbol;
 
-class expression : public virtual symbol
+class expression : public virtual statement
 {
 private:
     static const std::vector<token_type> validOps;

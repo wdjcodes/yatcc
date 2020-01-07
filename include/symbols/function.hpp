@@ -19,6 +19,7 @@ class function : public scopingSymbol
 private:
     /* data */
     function();
+    bool returnMissing;
 public:
     virtual void print();
     static std::shared_ptr<function> parse(std::list<token>::iterator&);
@@ -29,6 +30,7 @@ public:
 inline function::function(/* args */)
 {
     type = FUNCTION;
+    returnMissing = true;
 }
 
 inline function::~function(){}

@@ -19,7 +19,8 @@ std::shared_ptr<expression> variableReference::parse(std::list<token>::iterator&
     }
     ref->var = scope->findVarByName(t.token_string);
     if(!ref->var){
-        std::cerr << "Variable: " << t.token_string << "is undefined\n";
+        std::cerr << "Variable: " << t.token_string << " is undefined\n";
+        exit(1);
     }
     return ref;
 }
