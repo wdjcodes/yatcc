@@ -49,8 +49,8 @@ enum token_type {
   IDENTIFIER,
   INT_LITERAL,
 
-  //Dummy Value - must be last in the enum
-  NUM_TOKEN_TYPES
+  //must be last in the enum - also will be added to the end of the token list
+  END_TOKEN
 };
 
 typedef struct token_t {

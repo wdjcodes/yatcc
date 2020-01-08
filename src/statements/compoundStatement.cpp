@@ -12,7 +12,7 @@ std::shared_ptr<compoundStatement> compoundStatement::parse(std::list<token>::it
     std::shared_ptr<compoundStatement> compound_stmt(new compoundStatement(scope));
     t = peekToken(it);
     std::cout << "compoundStatement::parse<debug>: true " << true << " false " << false << "\n";
-    while(t.type != BRACE_CLOSE){
+    while(t.type != BRACE_CLOSE && t.type != END_TOKEN){
         if(!compound_stmt->reachesEnd){
             popToken(it);
             t = peekToken(it);

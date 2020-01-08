@@ -3,7 +3,7 @@
 
 namespace tokens {
 
-std::vector<std::regex> token_regex_map(NUM_TOKEN_TYPES);
+std::vector<std::regex> token_regex_map(END_TOKEN);
 
 void init_token_regex_map(){
   token_regex_map[RETURN_KEYWORD] = "^return\\b";

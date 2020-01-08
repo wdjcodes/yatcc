@@ -36,7 +36,7 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
     }
 
     t = peekToken(it);
-    while(t.type != BRACE_CLOSE){
+    while(t.type != BRACE_CLOSE && t.type != END_TOKEN){
         if(!func->reachesEnd){
             popToken(it);
             t = peekToken(it);

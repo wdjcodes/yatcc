@@ -43,6 +43,9 @@ program *program::parse(std::list<token> tokens){
         while(tokens.begin() != it){
             tokens.pop_front();
         }
+        if(tokens.size() == 0 || tokens.begin()->type == END_TOKEN){
+            break;
+        }
     }
 
     return prog;

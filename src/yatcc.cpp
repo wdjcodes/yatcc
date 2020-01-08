@@ -46,6 +46,11 @@ std::list<token> lex(std::istream_iterator<std::string> it){
     }
     it++;
   }
+  //Add an END_TOKEN to signal end of program to parser
+  token t;
+  t.type = END_TOKEN;
+  t.token_string = "END_TOKEN";
+  tokens.push_back(t);
   return tokens;
 }
 
