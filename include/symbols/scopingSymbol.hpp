@@ -13,18 +13,24 @@ protected:
     /* data */
     std::list<std::shared_ptr<variable>> vars;
     std::string value;  //Should probably be changed later
-    int stackOffset;
     void prologueCodeGen(std::ofstream&);
+    bool reachesEnd;
+    int stackOffset;
 public:
     std::shared_ptr<variable> findVarByName(std::string);
+    std::shared_ptr<variable> findLocalVarByName(std::string);
     std::shared_ptr<variable> createVariable(std::string);
-    void epilogueCodeGen(std::ofstream&);
+    std::shared_ptr<scopingSymbol> getParentScope();
+    int getStackOffset();
+    virtual void epilogueCodeGen(std::ofstream&);
     scopingSymbol(/* args */);
     ~scopingSymbol();
 };
 
-inline scopingSymbol::scopingSymbol(/* args */){stackOffset = -8;}
+inline scopingSymbol::scopingSymbol(/* args */){stackOffset = -8; reachesEnd = true;}
 inline scopingSymbol::~scopingSymbol(){}
+inline int scopingSymbol::getStackOffset(){return stackOffset;}
+inline std::shared_ptr<scopingSymbol> scopingSymbol::getParentScope(){return scope;}
 
 
 }

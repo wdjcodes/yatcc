@@ -10,13 +10,12 @@ using namespace tokens;
 
 namespace symbols {
 
-class statement : public blockItem
+class statement : virtual public blockItem
 {
 private:
     /* data */
 protected:
     statement(/* args */);
-    std::shared_ptr<scopingSymbol> scope;
 public:
     virtual void print();
     static std::shared_ptr<statement> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);

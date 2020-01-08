@@ -28,6 +28,7 @@ std::shared_ptr<ifStatement> ifStatement::parse(std::list<token>::iterator& it, 
         popToken(it);
         stmt->else_false = statement::parse(it, scope);
     }
+    stmt->symbolReturns = stmt->else_false ? stmt->if_true->causesReturn() && stmt->else_false->causesReturn() : false;
     return stmt;
 }
 
@@ -50,14 +51,14 @@ void ifStatement::codeGen(std::ofstream& ofs){
 void ifStatement::print(){
     std::cout << "IF(";
     test->print();
-    std::cout << "){\n";
+    std::cout << ")";
     if_true->print();
-    std::cout << "}\n";
+    std::cout << " ";
     if(else_false){
-        std::cout << "ELSE{";
+        std::cout << "ELSE\n";
         else_false->print();
-        std::cout << "}\n";
     }
+    std::cout << "\n";
 }
 
 

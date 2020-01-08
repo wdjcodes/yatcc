@@ -5,6 +5,8 @@
 #include <list>
 #include <iostream>
 #include <fstream>
+#include <typeinfo>
+#include <memory>
 
 #include "../token.hpp"
 
@@ -32,20 +34,19 @@ protected:
     static token popToken(std::list<token>::iterator&);
     static token peekToken(std::list<token>::iterator&);
     std::shared_ptr<scopingSymbol> scope;
+    const std::type_info& scopeLevel;
+    bool symbolReturns;
+    symbol(const std::type_info&);
 public:
     virtual void print();
     virtual void codeGen(std::ofstream&);
+    void assignScope(std::shared_ptr<scopingSymbol>);
+    bool causesReturn();
     symbol(/* args */);
     ~symbol();
 };
 
-inline symbol::symbol(/* args */)
-{
-}
-
-inline symbol::~symbol()
-{
-}
+inline symbol::~symbol(){}
 
 inline token symbol::popToken(std::list<token>::iterator& it){
     token t = *it;
@@ -58,8 +59,8 @@ inline token symbol::peekToken(std::list<token>::iterator& it){
 }
 
 inline void symbol::print(){}
-
 inline void symbol::codeGen(std::ofstream& ofs){}
+inline bool symbol::causesReturn(){return symbolReturns;}
 
 
 typedef std::shared_ptr<symbol> symbol_ptr;

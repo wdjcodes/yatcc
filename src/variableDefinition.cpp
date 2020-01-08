@@ -4,6 +4,7 @@ namespace symbols {
 
 std::shared_ptr<variableDefinition> variableDefinition::parse(std::list<token>::iterator& it, std::shared_ptr<scopingSymbol> scope){
     std::shared_ptr<variableDefinition> var(new variableDefinition);
+    // std::cout << "variableDefinition::parse<debug>: " << var->symbolReturns << var->causesReturn() << "\n";
     token t;
     std::string name;
     t = popToken(it);
@@ -40,7 +41,6 @@ void variableDefinition::print(){
         std::cout << " = ";
         initialValue->print();
     }
-    std::cout << "\n";
 }
 
 void variableDefinition::codeGen(std::ofstream& ofs){

@@ -2,7 +2,7 @@
 #include <symbols/expressions/expression.hpp>
 #include <symbols/statements/returnStatement.hpp>
 #include <symbols/statements/ifStatement.hpp>
-#include <symbols/variable.hpp>
+#include <symbols/statements/compoundStatement.hpp>
 
 namespace symbols {
 
@@ -14,19 +14,14 @@ std::shared_ptr<statement> statement::parse(std::list<token>::iterator& it, std:
     switch (t.type){
         case RETURN_KEYWORD: {
             stmt = returnStatement::parse(it, scope);
-            // popToken(it);
-            // stmt->value = t.token_string;
-            // stmt->children.push_back(expression::parse(it, scope));
-            // stmt->scope = scope;
             break;
         }
-        // case  INT_KEYWORD: {
-        //     stmt = variableDefinition::parse(it, scope);
-        //     break;
-        // }
         case IF_KEYWORD: {
             //If's should not have semicolon go ahead and return
             return ifStatement::parse(it, scope);
+        }
+        case BRACE_OPEN: {
+            return compoundStatement::parse(it, scope);
         }
         default: {
             stmt = expression::parse(it, scope);

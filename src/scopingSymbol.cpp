@@ -3,13 +3,18 @@
 namespace symbols {
 
 std::shared_ptr<variable> scopingSymbol::findVarByName(std::string name){
+    std::shared_ptr<variable> v = findLocalVarByName(name);
+    return v ? v : scope ? scope->findVarByName(name) : NULL;
+}
+
+std::shared_ptr<variable> scopingSymbol::findLocalVarByName(std::string name){
     std::list<std::shared_ptr<variable>>::iterator it;
     it = std::find(vars.begin(), vars.end(), name);
     return it != vars.end() ? *it : NULL;
 }
 
 std::shared_ptr<variable> scopingSymbol::createVariable(std::string name){
-    if(findVarByName(name)){
+    if(findLocalVarByName(name)){
         std::cerr << "Cannot redefine variable: " << name <<"\n";
         exit(1);
     }

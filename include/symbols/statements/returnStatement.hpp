@@ -3,6 +3,7 @@
 
 #include "statement.hpp"
 #include "../expressions/expression.hpp"
+#include "../function.hpp"
 
 namespace symbols {
 
@@ -19,7 +20,6 @@ public:
     void print();
     ~returnStatement();
 };
-inline returnStatement::returnStatement(/* args */){value = NULL;}
 inline returnStatement::~returnStatement(){}
 
 

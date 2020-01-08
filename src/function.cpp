@@ -1,6 +1,6 @@
 #include <symbols/function.hpp>
 #include <symbols/statements/returnStatement.hpp>
-#include <symbols/variableDefinition.hpp>
+#include <symbols/blockItem.hpp>
 
 namespace symbols{
 
@@ -37,22 +37,17 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     t = peekToken(it);
     while(t.type != BRACE_CLOSE){
-        if(!func->returnMissing){
+        if(!func->reachesEnd){
+            popToken(it);
+            t = peekToken(it);
             continue;
         }
-        switch(t.type){
-            case INT_KEYWORD: {
-                func->children.push_back(variableDefinition::parse(it, func));
-                break;
-            }
-            default: {
-                func->children.push_back(statement::parse(it, func));
-            }
-        }
-        if(typeid(*func->children.back()) == typeid(returnStatement)){
-            func->returnMissing = false;
+        func->children.push_back(blockItem::parse(it, func));
+        if(func->children.back()->causesReturn()){
+            func->reachesEnd = false;
         }
         func->children.back()->print();
+        std::cout << "\n";
         t = peekToken(it);
     }
     
@@ -81,7 +76,7 @@ void function::codeGen(std::ofstream& ofs){
         s->codeGen(ofs);
     }
 
-    if(returnMissing){
+    if(reachesEnd){
         ofs << "mov\t$0,%eax\nmov\t%rbp,%rsp\npop\t%rbp\nret\n";
     }
 
