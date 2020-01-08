@@ -1,5 +1,5 @@
 #include <symbols/expressions/variableAssignment.hpp>
-#include <symbols/expressions/boolOr.hpp>
+#include <symbols/expressions/conditionalExpression.hpp>
 
 
 namespace symbols{
@@ -10,7 +10,7 @@ std::shared_ptr<expression> variableAssignment::parse(std::list<token>::iterator
     if(t.type != IDENTIFIER || peekToken(it).type != ASSIGNMENT){
         //Not a variable assignment go down the parse chain
         it--;
-        return boolOrExpression::parse(it, scope);
+        return conditionalExpression::parse(it, scope);
     }
     var->var = scope->findVarByName(t.token_string);
     if(!var->var){
@@ -36,7 +36,6 @@ void variableAssignment::print(){
     var->print();
     std::cout << " = ";
     value->print();
-    std::cout << "\n";
 }
 
 }

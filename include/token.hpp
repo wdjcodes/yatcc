@@ -41,6 +41,8 @@ enum token_type {
   LESS_THAN,
   GRATER_THAN,
   ASSIGNMENT,
+  QUESTION,
+  COLON,
 
 
   // Non-Keyword Tokens

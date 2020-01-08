@@ -32,6 +32,8 @@ void init_token_regex_map(){
   token_regex_map[LESS_THAN_OR_EQUAL] = "^<=";
   token_regex_map[GREATE_THAN_OR_EQUAL] = "^>=";
   token_regex_map[ASSIGNMENT] = "^=";
+  token_regex_map[QUESTION] = "^\\?";
+  token_regex_map[COLON] = "^:";
 }
 
 void init_tokens(){
