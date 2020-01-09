@@ -37,17 +37,11 @@ std::shared_ptr<function> function::parse(std::list<token>::iterator& it){
 
     t = peekToken(it);
     while(t.type != BRACE_CLOSE && t.type != END_TOKEN){
-        if(!func->reachesEnd){
-            popToken(it);
-            t = peekToken(it);
-            continue;
-        }
         func->children.push_back(blockItem::parse(it, func));
-        if(func->children.back()->causesReturn()){
-            func->reachesEnd = false;
-        }
+        // Verbose
         func->children.back()->print();
         std::cout << "\n";
+        // End Verbose
         t = peekToken(it);
     }
     
@@ -74,11 +68,11 @@ void function::codeGen(std::ofstream& ofs){
     prologueCodeGen(ofs);
     for(symbol_ptr s : children){
         s->codeGen(ofs);
+        if(s->causesReturn()){
+            return;
+        }
     }
-
-    if(reachesEnd){
-        ofs << "mov\t$0,%eax\nmov\t%rbp,%rsp\npop\t%rbp\nret\n";
-    }
+    ofs << "mov\t$0,%eax\nmov\t%rbp,%rsp\npop\t%rbp\nret\n";
 
 }
 

@@ -13,15 +13,8 @@ std::shared_ptr<compoundStatement> compoundStatement::parse(std::list<token>::it
     t = peekToken(it);
     std::cout << "compoundStatement::parse<debug>: true " << true << " false " << false << "\n";
     while(t.type != BRACE_CLOSE && t.type != END_TOKEN){
-        if(!compound_stmt->reachesEnd){
-            popToken(it);
-            t = peekToken(it);
-            continue;
-        }
         compound_stmt->statements.push_back(blockItem::parse(it, compound_stmt));
-        compound_stmt->statements.back()->print();
         compound_stmt->symbolReturns = compound_stmt->statements.back()->causesReturn();
-        compound_stmt->reachesEnd = !(compound_stmt->symbolReturns);
         t = peekToken(it);
     }
     t = popToken(it);
@@ -38,6 +31,9 @@ void compoundStatement::codeGen(std::ofstream& ofs){
     prologueCodeGen(ofs);
     for(auto s : statements){
         s->codeGen(ofs);
+        if(s->causesReturn()){
+            return;
+        }
     }
     if(reachesEnd){
         epilogueCodeGen(ofs);
