@@ -30,4 +30,10 @@ void boolAndExpression::codeGen(std::ofstream& ofs){
     ofs << "cmpl\t$0, %eax\nmovl\t$0, %eax\nsetne\t%al\n"<< end_label << ":\n";
 }
 
+void boolAndExpression::print(){
+    left->print();
+    std::cout << " && ";
+    right->print();
+}
+
 }

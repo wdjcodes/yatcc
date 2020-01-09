@@ -45,4 +45,10 @@ bool equalityExpression::isValidOp(token_type t){
     return is_valid_op<equalityExpression>(t);
 }
 
+void equalityExpression::print(){
+    left->print();
+    op == EQUAL ? std::cout << " == " : std::cout << " != ";
+    right->print();
+}
+
 }

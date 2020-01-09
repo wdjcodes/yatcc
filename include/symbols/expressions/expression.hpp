@@ -25,7 +25,6 @@ protected:
     std::shared_ptr<scopingSymbol> scope;
 public:
     static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
-    void codeGen(std::ofstream&);
     expression(token, std::shared_ptr<expression>, std::shared_ptr<expression>);
     ~expression();
 };

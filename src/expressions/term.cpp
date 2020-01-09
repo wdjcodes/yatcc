@@ -47,4 +47,10 @@ bool term::isValidOp(token_type t){
     return is_valid_op<term>(t);
 }
 
+void term::print(){
+    left->print();
+    op == MULTIPLY ? std::cout << " * " : std::cout << " / ";
+    right->print();
+}
+
 }

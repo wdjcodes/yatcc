@@ -20,6 +20,7 @@ public:
     static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     static bool isValidOp(token_type);
     void codeGen(std::ofstream&);
+    void print();
     term(token o, std::shared_ptr<expression> l, std::shared_ptr<expression> r, std::shared_ptr<scopingSymbol> s);
     ~term();
     friend expression;

@@ -29,12 +29,12 @@ inline typedFactor<T>::~typedFactor(){}
 typedef typedFactor<int> intFactor;
 
 template<>
-inline void intFactor::codeGen(std::ofstream& ofs){
+void intFactor::codeGen(std::ofstream& ofs){
     ofs << "movl\t$" << value << ", %eax\n";
 }
 
 template <class T>
-inline void typedFactor<T>::print() {
+void typedFactor<T>::print() {
     std::cout << this->value;
 }
 
@@ -56,7 +56,7 @@ negationOperator::negationOperator(/* args */){}
 negationOperator::~negationOperator(){}
 
 void negationOperator::print(){
-    std::cout << "-( ";
+    std::cout << "-(";
     operand->print();
     std::cout << ")";
 }
@@ -83,7 +83,7 @@ bitNotOperator::bitNotOperator(/* args */){}
 bitNotOperator::~bitNotOperator(){}
 
 void bitNotOperator::print(){
-    std::cout << "~( ";
+    std::cout << "~(";
     operand->print();
     std::cout << ")";
 }
@@ -110,7 +110,7 @@ boolNotOperator::boolNotOperator(/* args */){}
 boolNotOperator::~boolNotOperator(){}
 
 void boolNotOperator::print(){
-    std::cout << "!( ";
+    std::cout << "!(";
     operand->print();
     std::cout << ")";
 }
@@ -133,14 +133,8 @@ public:
     virtual void codeGen(std::ofstream&);
     virtual void print();
 };
-
-parenGroup::parenGroup(/* args */)
-{
-}
-
-parenGroup::~parenGroup()
-{
-}
+parenGroup::parenGroup(/* args */){}
+parenGroup::~parenGroup(){}
 
 void parenGroup::codeGen(std::ofstream& ofs){
     operand->codeGen(ofs);

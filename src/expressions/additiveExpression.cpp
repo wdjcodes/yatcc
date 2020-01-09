@@ -50,4 +50,10 @@ bool additiveExpression::isValidOp(token_type t){
     return is_valid_op<additiveExpression>(t);
 }
 
+void additiveExpression::print(){
+    left->print();
+    op == PLUS ? std::cout << " + " : std::cout << " - ";
+    right->print();
+}
+
 }

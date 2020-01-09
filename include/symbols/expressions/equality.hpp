@@ -18,6 +18,7 @@ private:
 public:
     equalityExpression(token, std::shared_ptr<expression>, std::shared_ptr<expression>, std::shared_ptr<scopingSymbol>);
     void codeGen(std::ofstream&);
+    void print();
     static std::shared_ptr<expression> parse(std::list<token>::iterator&, std::shared_ptr<scopingSymbol>);
     static bool isValidOp(token_type);
     ~equalityExpression();

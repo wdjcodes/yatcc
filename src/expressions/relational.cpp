@@ -54,5 +54,32 @@ bool relationalExpression::isValidOp(token_type t){
     return is_valid_op<relationalExpression>(t);
 }
 
+void relationalExpression::print(){
+    left->print();
+    switch (op) {
+        case LESS_THAN: {
+            std::cout << " < ";
+            break;
+        }
+        case GRATER_THAN: {
+            std::cout << " > ";
+            break;
+        }
+        case LESS_THAN_OR_EQUAL: {
+            std::cout << " <= ";
+            break;
+        }
+        case GREATE_THAN_OR_EQUAL: {
+            std::cout << " >= ";
+            break;
+        }
+        default: {
+            exit(1);
+        }
+    }
+    right->print();
+    
+}
+
 
 }
